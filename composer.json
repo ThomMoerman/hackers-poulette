@@ -1,0 +1,10 @@
+{
+    "name": "vendor/name",
+    "authors": [{
+        "name": "ThomasMoerman",
+        "email": "thomas.moerman.7@gmail.com"
+    }],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.2"
+    }
+}

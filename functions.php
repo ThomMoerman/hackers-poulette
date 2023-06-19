@@ -1,4 +1,8 @@
 <?php
+
+require 'vendor/autoload.php';
+
+
 // Function to sanitize input data
 function sanitize($data)
 {
@@ -99,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $fileError = 'Error uploading the file.';
         }
-    } else{
+    } else {
         $fileName = NULL;
     }
 
@@ -111,6 +115,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Error: ' . $e->getMessage();
         exit;
     }
+
+    // Send confirmation email
+    $transport = new Swift_SmtpTransport('smtp-relay.sendinblue.com', 587);
+    $transport->setUsername('thomas.moerman.7@gmail.com');
+    $transport->setPassword('Z5hMxygDYOGzEAn3');
+
+    $mailer = new Swift_Mailer($transport);
+
+    $message = new Swift_Message('Confirmation Email');
+    $message->setFrom($email);
+    $message->setTo(['thomas.moerman.7@gmail.com' => 'Recipient Name']); // Change the email address and name accordingly
+    $message->setBody('Thank you for contacting us! We have received your message.'); // Customize the email body
+
+    $result = $mailer->send($message);
 
     // Respond to the user
     echo 'Thank you for contacting us! We will get back to you soon.';
