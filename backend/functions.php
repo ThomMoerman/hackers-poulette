@@ -125,16 +125,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $message = new Swift_Message('Confirmation Email');
     $message->setFrom($email);
-    $message->setTo(['thomas.moerman.7@gmail.com' => 'Recipient Name']); // Change the email address and name accordingly
-    $message->setBody('Thank you for contacting us! We have received your message.'); // Customize the email body
+    $message->setTo(['thomas.moerman.7@gmail.com' => 'Recipient']); 
+    $message->setBody('Thank you for contacting us! We have received your message.');
 
     $result = $mailer->send($message);
 
     // Respond to the user
     include '../views/response.php';
-    // echo 'Thank you for contacting us! We will get back to you soon.';
-    // echo '<br>';
-    // echo '<a href="index.php">Retourner au formulaire</a>';
+    
     exit;
 }
 ?>
