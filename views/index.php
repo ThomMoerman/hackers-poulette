@@ -1,5 +1,5 @@
 <?php
- include 'functions.php'
+ include '../backend/functions.php'
 ?>
 
 <!DOCTYPE html>
@@ -10,11 +10,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-neutral-50 font-mono">
+    <?php
+        include '../views/header.php'
+    ?>
     <div class="text-center">
     <h2 class="text-4xl my-6">Contact Support</h2>
     <?php
         include 'form.php'
     ?>
-    <script src="validation.js"></script>
+    <script src="./backend/validation.js"></script>
 </body>
 </html>
