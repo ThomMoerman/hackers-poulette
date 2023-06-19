@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $file = $_FILES['file'];
                 $fileTempName = $file['tmp_name'];
                 $fileName = $file['name'];
-                move_uploaded_file($fileTempName, 'uploads/' . $fileName);
+                move_uploaded_file($fileTempName, '../uploads/' . $fileName);
             } else {
                 $fileError = 'Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.';
             }
@@ -131,9 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $mailer->send($message);
 
     // Respond to the user
-    echo 'Thank you for contacting us! We will get back to you soon.';
-    echo '<br>';
-    echo '<a href="index.php">Retourner au formulaire</a>';
+    include '../views/response.php';
+    // echo 'Thank you for contacting us! We will get back to you soon.';
+    // echo '<br>';
+    // echo '<a href="index.php">Retourner au formulaire</a>';
     exit;
 }
 ?>
