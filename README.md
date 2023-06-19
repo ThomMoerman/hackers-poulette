@@ -2,6 +2,10 @@
 
 This project is an implementation of a secure contact form for the Hackers Poulette website. The form allows users to submit contact requests by providing their personal information and a message.
 
+## View
+
+![view.png](view.png)
+
 ## Features
 
 - Server-side validation of form data.
@@ -16,3 +20,8 @@ This project is an implementation of a secure contact form for the Hackers Poule
 - PHP 5.6 or higher
 - MySQL
 - Composer (to install dependencies)
+
+### TO DO  
+- rakit/validation
+- deploiement 
+- dashboard
