@@ -23,38 +23,38 @@ This project is an implementation of a secure contact form for the Hackers Poule
 
 ## Installation
 
-1. Clonez ce dépôt dans votre répertoire local :
+1. Clone this repository to your local directory :
 
 `git clone https://github.com/votre-utilisateur/hackers-poulette.git`
 
-2. Accédez au répertoire du projet :
+2. Navigate to the project directory :
 
 `cd hackers-poulette`
 
-3. Installez les dépendances en exécutant la commande suivante :
+3. Install the dependencies by running the following command :
 
 `composer install`
 
-4. Configurez les informations de connexion à la base de données dans le fichier `functions.php`.
+4. Configure the database connection information in the `functions.php` file.
 
-## Utilisation
+## Usage
 
-1. Importez le fichier SQL `database.sql` dans votre base de données MySQL pour créer la table `contact_forms`.
+1. Import the `database.sql` file into your MySQL database to create the `contact_forms` table.
 
-2. Démarrez un serveur web local (par exemple, avec Apache) et assurez-vous que votre site est accessible.
+2. Start a local web server (e.g., with Apache) and ensure that your site is accessible.
 
-3. Accédez à la page du formulaire dans votre navigateur (par exemple, http://localhost/hackers-poulette/index.php).
+3. Access the form page in your browser (e.g., http://localhost/hackers-poulette/index.php)
 
-4. Remplissez le formulaire avec les informations requises et soumettez-le.
+4. Fill out the form with the required information and submit it.
 
-5. Si le formulaire est valide, les données seront enregistrées dans la base de données et vous recevrez un e-mail de confirmation de réception.
+5. If the form is valid, the data will be saved in the database, and the email adress specified in the email input will receive a confirmation email.
 
-## Contribuer
+## Contributing
 
 Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet, veuillez suivre les étapes suivantes :
 
-1. Fork du dépôt.
-2. Créez une branche pour vos modifications.
-3. Faites les modifications et commit.
-4. Push vos modifications sur votre fork.
-5. Ouvrez une pull request vers ce dépôt.
+1. Fork the repository.
+2. Create a branch for your modifications.
+3. Make the changes and commit them.
+4. Push your modifications to your fork.
+5. Open a pull request to this repository.
