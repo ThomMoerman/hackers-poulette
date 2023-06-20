@@ -12,7 +12,7 @@ This project is an implementation of a secure contact form for the Hackers Poule
 - Protection against spam using the honeypot technique.
 - Saves form data in a MySQL database.
 - Sends an e-mail confirming receipt (using SwiftMailer).
-- Use of the rakit/validation library for data validation. (Not yet)
+- Use of the rakit/validation library for data validation.
 - Client-side validation with JavaScript for a better user experience.
 
 ## Prerequisites
@@ -22,6 +22,5 @@ This project is an implementation of a secure contact form for the Hackers Poule
 - Composer (to install dependencies)
 
 ### TO DO  
-- rakit/validation
 - deploiement 
 - dashboard
