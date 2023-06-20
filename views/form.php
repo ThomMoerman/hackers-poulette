@@ -38,6 +38,8 @@
       <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="description" id="description" rows="5" placeholder="Description" required></textarea>
     </div>
   </div>
+  <div class="g-recaptcha" data-sitekey="6LfSzrMmAAAAABSADH5k7HqDyliFOfb_A5y50RAV" data-callback='onSubmit' 
+        data-action='submit'></div>
   <div style="display: none;">
     <label for="honeypot">Leave this field blank:</label>
     <input type="text" name="honeypot" id="honeypot">
