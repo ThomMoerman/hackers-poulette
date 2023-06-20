@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fileErrors = $e->getMessages();
             
             if ($fileErrors->has('file')) {
-                echo '<script>alert("Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</script>';
+                echo '<strong>Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</strong>';
             }
             
             exit;
