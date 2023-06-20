@@ -5,6 +5,7 @@
         "email": "thomas.moerman.7@gmail.com"
     }],
     "require": {
-        "swiftmailer/swiftmailer": "^6.2"
+        "swiftmailer/swiftmailer": "^6.2",
+        "rakit/validation": "^1.4"
     }
 }

@@ -2,38 +2,8 @@
 
 require '../vendor/autoload.php';
 
-
-// Function to sanitize input data
-function sanitize($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-// Function to validate the email address
-function validateEmail($email)
-{
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
-}
-
-// Function to check the file type and size
-function validateFile($file)
-{
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    $maxSize = 2 * 1024 * 1024; // 2MB
-
-    if ($file['size'] > $maxSize) {
-        return false;
-    }
-
-    if (!in_array($file['type'], $allowedTypes)) {
-        return false;
-    }
-
-    return true;
-}
+use Rakit\Validation\Validator;
+use Rakit\Validation\ValidationException;
 
 // Initialize variables with empty values
 $name = $firstname = $email = $description = '';
@@ -54,6 +24,8 @@ try {
     exit;
 }
 
+$validator = new Validator();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check the 'honeypot' field to prevent spam attack
@@ -63,46 +35,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Sanitize and validate the form fields
-    $name = sanitize($_POST['name']);
-    if (empty($name) || strlen($name) < 2 || strlen($name) > 255) {
-        echo 'Please enter a valid name (2-255 characters).';
+    // Define validation rules
+    $validation = $validator->make($_POST, [
+        'name' => 'required|min:2|max:255',
+        'firstname' => 'required|min:2|max:255',
+        'email' => 'required|email',
+        'description' => 'required|min:2|max:1000',
+        'file' => 'uploaded_file:0,2097152|mimes:jpg,png,gif',
+    ]);
+
+    try {
+        // Perform validation
+        $validation->validate();
+    } catch (ValidationException $e) {
+        // Validation failed, retrieve the errors
+        $errors = $e->getMessages();
+        
+        if ($errors->has('name')) {
+            echo '<script>alert("Please enter a valid name (2-255 characters).");</script>';
+        }
+
+        if ($errors->has('firstname')) {
+            echo '<script>alert("Please enter a valid first name (2-255 characters).");</script>';
+        }
+
+        if ($errors->has('email')) {
+            echo '<script>alert("Please enter a valid email address.");</script>';
+        }
+
+        if ($errors->has('description')) {
+            echo '<script>alert("Please enter a valid description (2-1000 characters).");</script>';
+        }
+
+        if ($errors->has('file')) {
+            echo '<script>alert("Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</script>';
+        }
+
         exit;
     }
 
-    $firstname = sanitize($_POST['firstname']);
-    if (empty($firstname) || strlen($firstname) < 2 || strlen($firstname) > 255) {
-        echo 'Please enter a valid first name (2-255 characters).';
-        exit;
-    }
+    // Retrieve the validated data
+    $data = $validation->getValidData();
 
-    $email = sanitize($_POST['email']);
-    if (empty($email) || !validateEmail($email)) {
-        echo 'Please enter a valid email address.';
-        exit;
-    }
-
-    $description = sanitize($_POST['description']);
-    if (empty($description) || strlen($description) < 2 || strlen($description) > 1000) {
-        echo 'Please enter a valid description (2-1000 characters).';
-        exit;
-    }
+    $name = $data['name'];
+    $firstname = $data['firstname'];
+    $email = $data['email'];
+    $description = $data['description'];
 
     // Validate and process the file upload (optional field)
     if (!empty($_FILES['file']['name'])) {
-        if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
-            if (validateFile($_FILES['file'])) {
-                // File is valid, process it as needed
-                $file = $_FILES['file'];
-                $fileTempName = $file['tmp_name'];
-                $fileName = $file['name'];
-                move_uploaded_file($fileTempName, '../uploads/' . $fileName);
-            } else {
-                $fileError = 'Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.';
+        try {
+            // Perform file validation
+            $fileValidation = $validator->make($_FILES, [
+                'file' => 'uploaded_file:0,2097152|mimes:jpg,png,gif',
+            ]);
+    
+            $fileValidation->validate();
+        } catch (ValidationException $e) {
+            // File validation failed, retrieve the errors
+            $fileErrors = $e->getMessages();
+            
+            if ($fileErrors->has('file')) {
+                echo '<script>alert("Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</script>';
             }
-        } else {
-            $fileError = 'Error uploading the file.';
+            
+            exit;
         }
+
+        // File is valid, process it as needed
+        $file = $_FILES['file'];
+        $fileTempName = $file['tmp_name'];
+        $fileName = $file['name'];
+        move_uploaded_file($fileTempName, '../uploads/' . $fileName);
     } else {
         $fileName = NULL;
     }

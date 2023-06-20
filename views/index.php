@@ -18,6 +18,6 @@
     <?php
         include 'form.php'
     ?>
-    <script src="./backend/validation.js"></script>
+    <script src="../backend/validation.js"></script>
 </body>
 </html>
