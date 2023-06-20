@@ -51,7 +51,7 @@ This project is an implementation of a secure contact form for the Hackers Poule
 
 ## Contributing
 
-Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet, veuillez suivre les étapes suivantes :
+Contributions are welcome! If you would like to improve this project, please follow these steps:
 
 1. Fork the repository.
 2. Create a branch for your modifications.
