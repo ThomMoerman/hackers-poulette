@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $mailer->send($message);
 
     // Respond to the user
-    include '../views/response.php';
+    include './views/response.php';
     
     exit;
 }
