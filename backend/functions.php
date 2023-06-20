@@ -52,23 +52,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = $e->getMessages();
         
         if ($errors->has('name')) {
-            echo '<script>alert("Please enter a valid name (2-255 characters).");</script>';
+            echo '<strong>Please enter a valid name (2-255 characters).</strong>';
         }
 
         if ($errors->has('firstname')) {
-            echo '<script>alert("Please enter a valid first name (2-255 characters).");</script>';
+            echo '<strong>Please enter a valid first name (2-255 characters)</strong>';
         }
 
         if ($errors->has('email')) {
-            echo '<script>alert("Please enter a valid email address.");</script>';
+            echo '<strong>Please enter a valid email address.");</strong>';
         }
 
         if ($errors->has('description')) {
-            echo '<script>alert("Please enter a valid description (2-1000 characters).");</script>';
+            echo '<strong>Please enter a valid description (2-1000 characters)</strong>';
         }
 
         if ($errors->has('file')) {
-            echo '<script>alert("Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</script>';
+            echo '<strong>Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.</strong>';
         }
 
         exit;
