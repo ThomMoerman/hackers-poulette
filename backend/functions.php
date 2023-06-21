@@ -2,7 +2,6 @@
 require './vendor/autoload.php';
 
 use Rakit\Validation\Validator;
-use Rakit\Validation\ValidationException;
 
 // Initialize variables with empty values
 $name = $firstname = $email = $description = '';
@@ -43,66 +42,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'file' => 'uploaded_file:0,2097152|mimes:jpg,png,gif',
     ]);
 
-    try {
-        // Perform validation
-        $validation->validate();
-    } catch (ValidationException $e) {
-        // Validation failed, retrieve the errors
-        $errors = $e->getMessages();
+    // Perform validation
+    $validation->validate();
 
-        if ($errors->has('name')) {
-            echo '<strong>Please enter a valid name (2-255 characters).</strong>';
+    if ($validation->fails()) {
+        $errors = $validation->errors();
+        $errorString = '';
+        foreach ($errors->firstOfAll() as $field => $error) {
+            $errorString .= "$field: $error<br>";
         }
-
-        if ($errors->has('firstname')) {
-            echo '<strong>Please enter a valid first name (2-255 characters)</strong>';
-        }
-
-        if ($errors->has('email')) {
-            echo '<strong>Please enter a valid email address.");</strong>';
-        }
-
-        if ($errors->has('description')) {
-            echo '<strong>Please enter a valid description (2-1000 characters)</strong>';
-        }
-
-        if ($errors->has('file')) {
-            echo '<strong>Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.</strong>';
-        }
-
+        echo '<h2><strong> Form validation error : </strong></h2>';
+        echo "<h4>$errorString</h4>";
         exit;
     }
 
-    // Verify reCAPTCHA response
-    $recaptcha_secret = '6LfSzrMmAAAAAHoByW-DAZ8IBSCp83Wsnzhml54G';
-    $recaptcha_response = $_POST['g-recaptcha-response'];
-
-    // Make a POST request to the reCAPTCHA API
-    $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
-    $recaptcha_data = [
-        'secret' => $recaptcha_secret,
-        'response' => $recaptcha_response
-    ];
-
-    $recaptcha_options = [
-        'http' => [
-            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method' => 'POST',
-            'content' => http_build_query($recaptcha_data)
-        ]
-    ];
-
-    $recaptcha_context = stream_context_create($recaptcha_options);
-    $recaptcha_result = file_get_contents($recaptcha_url, false, $recaptcha_context);
-    $recaptcha_json = json_decode($recaptcha_result);
-
-    if (!$recaptcha_json->success || $recaptcha_json->action !== 'submit') {
-        // reCAPTCHA verification failed
-        echo '<strong>reCAPTCHA verification failed.</strong>';
-        exit;
-    }
-
-    // Retrieve the validated data
+    // Validation passes, retrieve the validated data
     $data = $validation->getValidData();
 
     $name = $data['name'];
@@ -112,21 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate and process the file upload (optional field)
     if (!empty($_FILES['file']['name'])) {
-        try {
-            // Perform file validation
-            $fileValidation = $validator->make($_FILES, [
-                'file' => 'uploaded_file:0,2097152|mimes:jpg,png,gif',
-            ]);
+        $fileValidation = $validator->make($_FILES, [
+            'file' => 'uploaded_file:0,2097152|mimes:jpg,png,gif',
+        ]);
 
-            $fileValidation->validate();
-        } catch (ValidationException $e) {
+        $fileValidation->validate();
+
+        if ($fileValidation->fails()) {
             // File validation failed, retrieve the errors
-            $fileErrors = $e->getMessages();
-
-            if ($fileErrors->has('file')) {
-                echo '<strong>Invalid file. Only JPG, PNG, and GIF files up to 2MB are allowed.");</strong>';
-            }
-
+            $fileErrors = $fileValidation->errors();
+            echo "<pre>";
+            print_r($fileErrors->firstOfAll());
+            echo "</pre>";
             exit;
         }
 
@@ -134,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file = $_FILES['file'];
         $fileTempName = $file['tmp_name'];
         $fileName = $file['name'];
-        move_uploaded_file($fileTempName, '../uploads/' . $fileName);
+        move_uploaded_file($fileTempName, './uploads/' . $fileName);
     } else {
         $fileName = NULL;
     }
