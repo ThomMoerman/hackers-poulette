@@ -6,6 +6,12 @@ This project is an implementation of a secure contact form for the Hackers Poule
 
 ![view.png](view.png)
 
+## Deployment 
+
+The site is currently hosted via `000webhost`.
+
+You can view it at this address: [https://phpcontactform2.000webhostapp.com/](https://phpcontactform2.000webhostapp.com/)
+
 ## Features
 
 - Server-side validation of form data.
@@ -14,7 +20,7 @@ This project is an implementation of a secure contact form for the Hackers Poule
 - Sends an e-mail confirming receipt (using SwiftMailer).
 - Use of the rakit/validation library for data validation.
 - Client-side validation with JavaScript for a better user experience.
-
+  
 ## Prerequisites
 
 - PHP 5.6 or higher
