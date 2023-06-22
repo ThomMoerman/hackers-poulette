@@ -16,6 +16,7 @@ You can view it at this address: [https://phpcontactform2.000webhostapp.com/](ht
 
 - Server-side validation of form data.
 - Protection against spam using the honeypot technique.
+- Integration of reCAPTCHA for enhanced spam protection.
 - Saves form data in a MySQL database.
 - Sends an e-mail confirming receipt (using SwiftMailer).
 - Use of the rakit/validation library for data validation.
