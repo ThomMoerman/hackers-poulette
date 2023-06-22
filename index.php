@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>Contact Support Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-neutral-50 font-mono">
     <?php

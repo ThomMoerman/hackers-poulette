@@ -56,6 +56,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $recaptchaSecretKey = '6LfRT70mAAAAAKl8fS4l83CNb1FWYRPNfIOQ35VF';
+$recaptcha = new \ReCaptcha\ReCaptcha($recaptchaSecretKey);
+$recaptchaResponse = $_POST['g-recaptcha-response'];
+$remoteIp = $_SERVER['REMOTE_ADDR'];
+
+$recaptchaResult = $recaptcha->verify($recaptchaResponse, $remoteIp);
+
+if (!$recaptchaResult->isSuccess()) {
+    // La vérification reCAPTCHA a échoué, gérer l'erreur ici
+    $errors = $recaptchaResult->getErrorCodes();
+    echo 'reCAPTCHA verification failed. Error codes: ' . implode(', ', $errors);
+    exit;
+}
     // Validation passes, retrieve the validated data
     $data = $validation->getValidData();
 
