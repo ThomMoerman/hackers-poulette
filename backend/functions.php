@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $recaptchaSecretKey = '6LfRT70mAAAAAKl8fS4l83CNb1FWYRPNfIOQ35VF';
+$recaptchaSecretKey = '6LfRT70mAAAAAKl8fS4l83CNb1FWYRPNfIOQ35VF';
 $recaptcha = new \ReCaptcha\ReCaptcha($recaptchaSecretKey);
 $recaptchaResponse = $_POST['g-recaptcha-response'];
 $remoteIp = $_SERVER['REMOTE_ADDR'];

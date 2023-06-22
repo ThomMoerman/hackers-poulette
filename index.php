@@ -19,6 +19,6 @@
     <?php
         include 'views/form.php'
     ?>
-    <!-- <script src="backend/validation.js"></script> -->
+    <script src="backend/validation.js"></script>
     </body>
 </html>
